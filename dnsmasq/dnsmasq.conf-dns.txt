@@ -1,0 +1,25 @@
+# dnsmasq dns server config
+
+resolv-file=/etc/resolv.conf
+# using hosts file
+# Custom DNS Entries
+
+# A Records
+address=/cptgw/192.168.252.1
+address=/pythondev/192.168.252.5
+address=/rpi/raspberrypi/10.1.252.8
+address=/cptgw.lan.bekkers.co.za/192.168.252.1
+address=/test.lan.bekkers.co.za/192.168.0.20
+address=/ruan-pc.lan.bekkers.co.za/192.168.252.4
+address=/drouter/10.1.252.3
+address=/urouter/192.168.252.2
+address=/gatelu.tunnel.int/10.18.1.1
+address=/failover/10.1.252.3
+
+# CNAME Records
+cname=raspberry.lan.bekkers.co.za,rpi
+cname=cptgw,cptgw.lan.bekkers.co.za
+cname=ruan-pc,ruan-pc.lan.bekkers.co.za
+cname=drouter,drouter.lan.bekkers.co.za
+cname=urouter,urouter.lan.bekkers.co.za
+cname=failover,failover.lan.bekkers.co.za

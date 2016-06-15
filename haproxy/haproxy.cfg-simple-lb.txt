@@ -1,0 +1,71 @@
+# this host: 10.1.0.1
+# load balancer:
+#   2 backend nodes, if both fails localhost serves a 
+#   maintenance page which is hosted with python simple http server
+
+global
+    log         127.0.0.1 local2
+
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     4000
+    user        haproxy
+    group       haproxy
+    daemon
+
+    stats socket /var/lib/haproxy/stats mode 600 level admin
+
+defaults
+    mode                    http
+    log                     global
+    option                  httplog
+    option                  dontlognull
+    option                  http-server-close
+    option                  forwardfor
+    option                  redispatch
+    retries                 3
+    timeout http-request    20s
+    timeout queue           86400
+    timeout connect         86400
+    timeout client          86400
+    timeout server          86400
+    timeout http-keep-alive 30s
+    timeout check           20s
+    maxconn                 50000
+
+listen stats   10.1.0.1:1936
+    mode            http
+    log             global
+
+    maxconn 10
+
+    timeout queue   100s
+
+    stats enable
+    stats hide-version
+    stats refresh 30s
+    stats show-node
+    stats auth admin:secret
+    stats uri  /haproxy?stats
+
+frontend LB
+    bind *:80
+    acl is_web hdr_end(host) -i domain.co.za
+    acl is_www-web hdr_end(host) -i www.domain.co.za
+
+    use_backend web-lb.prod if is_web
+    use_backend web-lb.prod if is_www-web
+    default_backend web-lb.prod
+
+    #reqadd X-Forwarded-Proto:\ http
+    #default_backend LB
+
+backend web-lb.prod 10.1.0.1:80
+    mode http
+    option httpchk GET /status/healthcheck.html
+    option httpclose
+    option forwardfor
+    server web.main 10.1.2.2:80 check cookie web.main
+    server web.backup 10.1.1.2:80 check backup
+    server maintenance 127.0.0.1:8000 backup
+
