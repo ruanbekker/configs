@@ -45,3 +45,4 @@ INSERT INTO alias (address,goto) VALUES ('alias@domain.tld', 'user@domain.tld');
 INSERT INTO mailbox (username,password,name,maildir) \
   VALUES ('user@domain.tld','secret','Mailbox User','user@domain.tld/');
 GRANT select, insert, update, delete on postfix.* to postfix@localhost IDENTIFIED BY 'postfix';
+GRANT ALL on postfix.* to postfix@localhost IDENTIFIED BY 'postfix';
