@@ -1,5 +1,5 @@
 com2sec local   localhost       public
-com2sec mynetwork 172.0.0.0/8   public
+com2sec mynetwork 52.16.65.55/32   public
 
 group MyRWGroup v1         local
 group MyRWGroup v2c        local
