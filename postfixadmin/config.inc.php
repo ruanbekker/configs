@@ -1,5 +1,5 @@
 <?php
-$CONF['configured'] = false;
+$CONF['configured'] = true;
 $CONF['setup_password'] = 'changeme';
 $CONF['postfix_admin_url'] = '';
 $CONF['postfix_admin_path'] = dirname(__FILE__);
@@ -7,7 +7,7 @@ $CONF['default_language'] = 'en';
 $CONF['database_type'] = 'mysql';
 $CONF['database_host'] = 'localhost';
 $CONF['database_user'] = 'postfix';
-$CONF['database_password'] = 'postfixadmin';
+$CONF['database_password'] = 'postfix';
 $CONF['database_name'] = 'postfix';
 $CONF['database_prefix'] = '';
 $CONF['database_tables'] = array (
