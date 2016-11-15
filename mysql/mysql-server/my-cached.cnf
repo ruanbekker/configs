@@ -1,0 +1,14 @@
+[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+user=mysql
+max_allowed_packet=256M
+query_cache_size=268435456
+query_cache_type=1
+query_cache_limit=1048576
+
+symbolic-links=0
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
