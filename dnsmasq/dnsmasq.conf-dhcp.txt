@@ -6,6 +6,10 @@ interface=eth0
 dhcp-range=10.1.1.50,10.1.1.200,12h
 dhcp-option=3,10.1.1.1 
 
+# log facility
+log-facility=/var/log/dnsmasq.log
+log-async
+
 # reservations
 dhcp-host=82:5F:0A:13:5E:B0,10.1.1.100
 
