@@ -9,6 +9,8 @@ dhcp-option=3,10.1.1.1
 # log facility
 log-facility=/var/log/dnsmasq.log
 log-async
+log-queries
+log-dhcp
 
 # reservations
 dhcp-host=82:5F:0A:13:5E:B0,10.1.1.100
