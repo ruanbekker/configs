@@ -1,5 +1,9 @@
 # dnsmasq dns server config
 
+# log location
+log-facility=/var/log/dnsmasq.log
+log-async
+
 resolv-file=/etc/resolv.conf
 # using hosts file
 # Custom DNS Entries
