@@ -3,6 +3,8 @@
 # log location
 log-facility=/var/log/dnsmasq.log
 log-async
+log-queries
+log-dhcp
 
 resolv-file=/etc/resolv.conf
 # using hosts file
