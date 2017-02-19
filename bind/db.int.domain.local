@@ -1,0 +1,16 @@
+;
+$TTL    604800
+@       IN      SOA     int.domain.local. root.int.domain.local. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      ns.int.domain.local.
+@       IN      A       10.0.0.2;
+ns              A       10.0.0.2
+ip-10-0-0-1     A       10.0.0.1
+ip-10-0-0-2     A       10.0.0.2
+ip-10-0-0-3     A       10.0.0.3
+ip-10-0-0-4     A       10.0.0.4
