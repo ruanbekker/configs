@@ -1,8 +1,4 @@
-elk:
-  image: sebp/elk
-  ports:
-    - "5601:5601"
-    - "9200:9200"
+logstash:
+  image: docker.elastic.co/logstash/logstash:5.2.2
+  ports: 
     - "5044:5044"
-
-# https://elk-docker.readthedocs.io/
