@@ -1,0 +1,19 @@
+elasticsearch:
+  image: elasticsearch
+  ports:
+  - 9200:9200
+logstash:
+  image: logstash:latest
+  links:
+  - elasticsearch:elasticsearch
+  ports:
+  - 12201:12201
+  command: logstash agent --debug -e 'input { log4j { mode => "server" port => "12201"} } output { elasticsearch { hosts => ["elasticsearch"] } stdout {} }'
+kibana:
+  image: kibana
+  links:
+  - elasticsearch:elasticsearch
+  ports:
+  - 5601:5601
+  environment:
+  - ELASTICSEARCH_URL=http://elasticsearch:9200
