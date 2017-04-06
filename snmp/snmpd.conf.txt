@@ -1,5 +1,5 @@
 com2sec local   localhost       public
-com2sec mynetwork 52.16.65.55/32   public
+com2sec mynetwork 10.1.1.0/24   public
 
 group MyRWGroup v1         local
 group MyRWGroup v2c        local
@@ -13,7 +13,7 @@ view all    included  .1                               80
 access MyROGroup ""      any       noauth    exact  all    none   none
 access MyRWGroup ""      any       noauth    exact  all    all    none
 
-syslocation Linux (CentOS 6), MyLinuxHostname.
-syscontact Ruan Bekker <ruan@ruanbekker.com>
+syslocation City, Country
+syscontact Me <email@domain.com>
 
 dontLogTCPWrappersConnects yes
