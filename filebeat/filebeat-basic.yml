@@ -1,0 +1,12 @@
+filebeat.prospectors:
+- input_type: log
+  paths:
+    - /var/log/nginx/*.log
+  exclude_files: ['\.gz$']
+  exclude_lines: ["^prism.css", "^prism.js", "^robots.txt"]
+
+  fields:
+    app_id: my_webapp
+
+output.logstash:
+  hosts: ["10.0.1.4:1234"]
