@@ -1,0 +1,14 @@
+# /etc/logrotate.d/mongod
+/var/log/mongodb/*.log {
+    daily
+    rotate 5
+    compress
+    dateext
+    missingok
+    notifempty
+    sharedscripts
+    copytruncate
+    postrotate
+        /bin/kill -SIGUSR1 `cat /var/lib/mongodb/mongod.lock 2> /dev/null` 2> /dev/null || true
+    endscript
+}
