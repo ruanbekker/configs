@@ -1,0 +1,25 @@
+---
+actions:
+  create_index:
+    action: create_index
+    description: "Create ES Index"
+    options:
+      name: ruan-testing-1-2017.11
+      extra_settings:
+        settings:
+          number_of_shards: 5
+          number_of_replicas: 1
+      continue_if_exception: True
+      disable_action: False
+
+  create_index_2:
+    action: create_index
+    description: "Create ES Index 2"
+    options:
+      name: ruan-testing-2-2017.11
+      extra_settings:
+        settings:
+          number_of_shards: 5
+          number_of_replicas: 1
+      continue_if_exception: True
+      disable_action: False
