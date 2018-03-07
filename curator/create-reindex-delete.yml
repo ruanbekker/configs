@@ -1,0 +1,47 @@
+---
+# Full Config:
+# Create, Reindex, Delete Old Indices
+# ENV Variables:
+# export ES_INDEX_NAME=ruan-testing-2018.01
+actions:
+  1:
+    action: create_index
+    description: "Create ES Index"
+    options:
+      name: ${ES_INDEX_NAME}
+      extra_settings:
+        settings:
+          number_of_shards: 3
+          number_of_replicas: 1
+      disable_action: False
+  2:
+    description: "Reindex months worth of data into a monthly index"
+    action: reindex
+    options:
+      disable_action: False
+      wait_interval: 9
+      max_wait: -1
+      request_body:
+        source:
+          index: REINDEX_SELECTION
+        dest:
+          index: ${ES_INDEX_NAME}
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: mikrotik-interface-metrics-2018.01.
+  3:
+    action: delete_indices
+    description: "Delete Old ES Indices"
+    options:
+      ignore_empty_list: True
+      disable_action: False
+    filters:
+    - filtertype: age
+      source: creation_date
+      direction: older
+      unit: days
+      unit_count: 30
+    - filtertype: pattern
+      kind: prefix
+      value: ${ES_INDEX_NAME}
