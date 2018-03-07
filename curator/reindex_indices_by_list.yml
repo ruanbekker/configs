@@ -1,0 +1,26 @@
+---
+actions:
+  create_index:
+    action: create_index
+    description: "Create ES Index Monthly"
+    options:
+      name: ruan-testing-2018.01
+      extra_settings:
+        settings:
+          number_of_shards: 5
+          number_of_replicas: 1
+      disable_action: False
+  re_index:
+    description: "Reindex months worth of data into a monthly index"
+    action: reindex
+    options:
+      disable_action: False
+      wait_interval: 9
+      max_wait: -1
+      request_body:
+        source:
+          index: ['ruan-testing-2018.01.01','ruan-testing-2018.01.02','ruan-testing-2018.01.03']
+        dest:
+          index: ruan-testing-2018.01
+    filters:
+    - filtertype: none
