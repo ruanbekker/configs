@@ -1,0 +1,19 @@
+---
+# Will delete anything older than 30 days, 
+# but needs to match the regex
+actions:
+  delete-indices:
+    action: delete_indices
+    description: "Delete ES Indices"
+    options:
+      ignore_empty_list: True
+      disable_action: False
+    filters:
+    - filtertype: age
+      source: creation_date
+      direction: older
+      unit: days
+      unit_count: 30
+    - filtertype: pattern
+      kind: regex
+      value: 'ruan-testing-2018.01.*'
