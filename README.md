@@ -1,10 +1,5 @@
 # README #
 
-Config repository mainly used for my scripting environment
+Config repository for config examples.
 
 
-### What is this repository for? ###
-
-* Scripting
-* Automated Deployments
-* Config Backups
