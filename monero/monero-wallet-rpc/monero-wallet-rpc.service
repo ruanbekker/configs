@@ -1,0 +1,27 @@
+[Unit]
+Description=monero-wallet Service
+After=network.target
+
+[Service]
+User=monero
+Group=monero
+Type=simple
+ExecStart=/usr/local/bin/monero-wallet-rpc \
+  --testnet \
+  --password xxxxxxx \
+  --log-file /blockchain/monero/logs/monero-wallet-rpc.log \
+  --max-log-files 2 \
+  --log-level 3 \
+  --daemon-address http://127.0.0.1:28089 \
+  --rpc-bind-ip 0.0.0.0 \
+  --rpc-bind-port 28083 \
+  --trusted-daemon \
+  --non-interactive \
+  --daemon-login monero:moneropass \
+  --rpc-login monerowallet:moneropass \
+  --confirm-external-bind \
+  --shared-ringdb-dir /blockchain/monero/data/testnet/.shared-ringdb/testnet \
+  --wallet-file /blockchain/monero/data/wallets/monero-main.wallet
+
+[Install]
+WantedBy=multi-user.target
