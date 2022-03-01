@@ -1,0 +1,15 @@
+[Unit]
+Description=monerod
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/blockchain/monero/config/monerod.pid
+ExecStart=/usr/local/bin/monerod --config-file /blockchain/monero/config/monerod.conf --pidfile /blockchain/monero/config/monerod.pid  --detach
+User=monero
+Group=monero
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
