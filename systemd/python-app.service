@@ -1,0 +1,19 @@
+[Unit]
+Description=python-app
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
+[Service]
+User=root
+Group=root
+Type=simple
+Restart=on-failure
+RestartSec=5s
+EnvironmentFile=/opt/application/.env
+WorkingDirectory=/opt/application
+ExecStart=/usr/bin/python3 app.py
+
+[Install]
+WantedBy=multi-user.target
