@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  website:
+    image: ghost:4
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.frontend.rule=Host:example.com,www.example.com
+        - traefik.frontend.redirect.regex=^https?://www.example.com/(.*)
+        - traefik.frontend.redirect.replacement=https://example.com/$${1}
+        - traefik.port=2368
+        - traefik.tags=public
+        - traefik.backend=website
+        - traefik.docker.network=public
+        - traefik.redirectorservice.frontend.entryPoints=http
+        - traefik.redirectorservice.frontend.redirect.entryPoint=https
+        - traefik.webservice.frontend.entryPoints=https
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: 3
