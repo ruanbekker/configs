@@ -1,0 +1,18 @@
+[Unit]
+Description=Trond Service
+After=network.target
+
+[Service]
+Type=simple
+User=tron
+Group=tron
+WorkingDirectory=/blockchain/data
+
+ExecStart=/usr/bin/java -Xmx4g -jar /usr/local/tron/current/bin/FullNode.jar -c /blockchain/data/tron-testnet.conf --es
+KillSignal=15
+KillMode=process
+Restart=on-failure
+LimitNOFILE=5000000
+
+[Install]
+WantedBy=multi-user.target
