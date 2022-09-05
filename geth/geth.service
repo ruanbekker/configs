@@ -1,0 +1,26 @@
+[Unit]
+Description=Geth (Ropsten) Node
+After=network.target auditd.service
+Wants=network.target
+
+[Service]
+WorkingDirectory=/home/pi
+ExecStart=/usr/local/geth/current/bin/geth \
+  --ropsten \
+  --datadir /blockchain/ethereum/data \
+  --datadir.minfreedisk 1024 \
+  --cache 128 \
+  --syncmode "light" \
+  --http --http.addr 0.0.0.0 --http.port 8545 \
+  --http.api "admin,debug,eth,net,personal,txpool,web3" \
+  --http.corsdomain "*" \
+  --metrics --metrics.addr 0.0.0.0 --metrics.port 6060 \
+  --whitelist "10920274=0xfd652086d220d506ae5b7cb80fde97d2f3f7028d346cc7d9d384a83d3d638532"
+User=pi
+Group=pi
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+Alias=geth.service
