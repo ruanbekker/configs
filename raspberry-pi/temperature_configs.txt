@@ -1,0 +1,33 @@
+# file location: /boot/config.txt
+# For more options and information see
+# http://rpf.io/configtxt
+# Some settings may impact device functionality. See link above for details
+
+# Additional overlays and parameters are documented /boot/overlays/README
+
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=on
+
+[pi4]
+# Enable DRM VC4 V3D driver on top of the dispmanx display stack
+dtoverlay=vc4-fkms-v3d
+max_framebuffers=2
+
+[all]
+#dtoverlay=vc4-fkms-v3d
+gpu_mem=16
+# temperature
+# https://github.com/raspberrypi/linux/pull/3493
+#dtoverlay=rpi-poe
+#dtparam=poe_fan_temp0=65000,poe_fan_temp0_hyst=1000
+#dtparam=poe_fan_temp1=70000,poe_fan_temp1_hyst=5000
+#dtparam=poe_fan_temp2=75000,poe_fan_temp2_hyst=5000
+#dtparam=poe_fan_temp3=80000,poe_fan_temp3_hyst=5000
+#dtparam=poe_fan_temp4=85000,poe_fan_temp4_hyst=5000
+
+# https://github.com/raspberrypi/linux/issues/2715
+dtoverlay=rpi-poe
+dtparam=poe_fan_temp0=60000
+dtparam=poe_fan_temp1=70000
+dtparam=poe_fan_temp2=78000
+dtparam=poe_fan_temp3=88000
