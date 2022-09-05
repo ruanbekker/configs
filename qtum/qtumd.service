@@ -1,0 +1,16 @@
+[Unit]
+Description=Qtum (QTUM) Testnet
+After=network.target
+
+[Service]
+User=pi
+Group=pi
+WorkingDirectory=/blockchain/qtum/data
+Type=simple
+ExecStart=/blockchain/qtum/software/current/bin/qtumd -conf=/blockchain/qtum/config/qtum.conf
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=qtum
+
+[Install]
+WantedBy=multi-user.target
