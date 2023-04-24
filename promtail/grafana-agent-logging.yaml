@@ -1,0 +1,54 @@
+logs:
+  configs:
+  - clients:
+    - basic_auth: {}
+      url: https://x.grafana.net/loki/api/v1/push
+    name: integrations
+    positions:
+      filename: /tmp/positions.yaml
+    scrape_configs:
+    - job_name: integrations/node_exporter_journal_scrape
+      journal:
+        max_age: 24h
+        labels:
+          instance: my-server
+          job: integrations/node_exporter
+      relabel_configs:
+      - source_labels: ['__journal__systemd_unit']
+        target_label: 'unit'
+      - source_labels: ['__journal__boot_id']
+        target_label: 'boot_id'
+      - source_labels: ['__journal__transport']
+        target_label: 'transport'
+      - source_labels: ['__journal_priority_keyword']
+        target_label: 'level'
+    - job_name: integrations/node_exporter_direct_scrape
+      static_configs:
+      - targets:
+        - localhost
+        labels:
+          instance: my-server
+          __path__: /var/log/{syslog,messages,*.log}
+          job: integrations/node_exporter
+    - job_name: integrations/docker
+      docker_sd_configs:
+        - host: unix:///var/run/docker.sock
+          refresh_interval: 5s
+      relabel_configs:
+        - action: replace
+          replacement: integrations/docker
+          source_labels:
+            - __meta_docker_container_id
+          target_label: job
+        - action: replace
+          replacement: localhost:9090
+          source_labels:
+            - __meta_docker_container_id
+          target_label: instance
+        - source_labels:
+            - __meta_docker_container_name
+          regex: '/(.*)'
+          target_label: container
+        - source_labels:
+            - __meta_docker_container_log_stream
+          target_label: stream
